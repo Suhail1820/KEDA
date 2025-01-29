@@ -1,0 +1,15 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: keda-flask-scaler
+spec:
+  minReplicaCount: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: keda-flask
+  triggers:
+  - type: cpu
+    metadata:
+      type: Utilization
+      value: "20"  # Scale when CPU usage exceeds 20%
